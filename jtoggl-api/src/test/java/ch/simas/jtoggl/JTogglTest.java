@@ -259,6 +259,17 @@ public class JTogglTest {
     }
 
     @Test
+    public void getTags() {
+        List<Workspace> workspaces = jToggl.getWorkspaces();
+        Workspace workspace=workspaces.get(0);
+        List<Tag> tags = jToggl.getWorkspaceTags(workspace.getId());
+
+        System.out.println(tags.toString());
+
+        Assert.assertFalse(tags.size()>0);
+    }
+
+    @Test
     public void getDetailedReport() {
         PagedResult detailedReport = jToggl.getDetailedReport((PagedReportsParameter) new PagedReportsParameter(workspace.getId(), "jtoggl-integration-test")
                 .setSince("2011-11-15")

@@ -591,7 +591,30 @@ public class JToggl {
 			}
 		}
 		return tasks;
-	}
+    }
+    
+     /**
+     * Get all tags in a workspace
+     * @param workspaceId
+     * @return all tags in workspace
+     */
+    public List<Tag> getWorkspaceTags(long workspaceId){
+        String url = TAGS.replace(PLACEHOLDER, String.valueOf(workspaceId));
+
+		String response = fetch(url);
+		JSONArray data = (JSONArray) JSONValue.parse(response);
+
+		List<Tag> tags = new ArrayList<Tag>();
+		if (data != null) {
+			for (Object obj : data) {
+				JSONObject entryObject = (JSONObject) obj;
+				tags.add(new Tag(entryObject.toJSONString()));
+			}
+        }
+        
+        System.out.println(tags.toString());
+		return tags;
+    }
 
     /**
 	 * All users in all workspaces.
